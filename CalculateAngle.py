@@ -1,31 +1,14 @@
-import numpy as np
-import math
+import os
+from CSVFile import CSVFile
 
-class Angle:
+data_directory = 'C:\\Users\\Tim\\Dropbox\\Research\\AOSConference2017\\CentroidPositionData'
 
-    def calculate_vectors(self,front_location,rear_location_one,rear_location_two):
-        self.vector_one = np.array(front_location) - np.array(rear_location_one)
-        self.vector_two = np.array(front_location) - np.array(rear_location_two)
+csv = CSVFile(data_directory, os.listdir(data_directory)[0])
 
-    def vector_magnitudes(self):
-        self.magnitude_one = math.sqrt(sum(self.vector_one**2))
-        self.magnitude_two = math.sqrt(sum(self.vector_two**2))
+csv.open_csv('r')
 
-    def vector_dot_product(self):
-        self.dot_product = np.vdot(self.vector_one,self.vector_two)
+[file_data, row] = csv.read_line()
 
-    def calculate_angle(self):
-        self.angle = math.acos(self.dot_product/(self.magnitude_one*self.magnitude_two))*180/math.pi
-        return self.angle
+num_of_rows = csv.find_num_of_rows()
 
-the_angle = Angle()
-
-the_angle.calculate_vectors([0,0,0],[1,0,0],[0,1,0])
-
-the_angle.vector_magnitudes();
-
-the_angle.vector_dot_product();
-
-theta = the_angle.calculate_angle()
-
-print(theta)
+print(row)
